@@ -1,0 +1,110 @@
+package Adii;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.lang.foreign.AddressLayout;
+import java.lang.invoke.ConstantBootstraps;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
+
+public class trafficsignal extends JFrame implements ActionListener,Runnable
+{
+	JLabel l1,l2;
+	JRadioButton b1,b2,b3;
+	ButtonGroup btngrp;
+	JButton btn;
+	JPanel panel;
+	Thread t;
+	boolean running=true;
+	trafficsignal()
+	{
+		t=new Thread(this);
+		setSize(400,400);
+		Object swing;
+		l1=new JLabel("Traffic Light",SwingConstants.CENTER);
+		add(l1);
+		l1.setFont(new Font("Arial",Font.BOLD,30));
+		l2=new JLabel(" ",SwingConstants.CENTER);
+		l2.setFont(new Font("Arial",Font.BOLD,30));
+		add(l2);
+		b1=new JRadioButton("RED");
+		b1.setForeground(Color.red);
+		b2=new JRadioButton ("YELLOW");
+		b2.setForeground(Color.yellow);
+		b3=new JRadioButton("GREEN");
+		b3.setForeground(Color.green);
+		btngrp=new ButtonGroup();
+		btngrp.add(b1);
+		btngrp.add(b2);
+		btngrp.add(b3);
+		btn=new JButton("START");
+		
+		panel=new JPanel(new FlowLayout());
+		panel.add(b1);
+		panel.add(b2);
+		panel.add(b3);
+		panel.add(btn);
+		
+		add(panel,BorderLayout.SOUTH);
+		btn.addActionListener((ActionListener) this);
+		setVisible(true);
+		
+		
+	}
+	
+		
+	
+	
+	public void actionPerformed(ActionEvent e)
+	{
+		if(e.getSource()==btn)
+		{
+			t.start();
+		}
+	}
+	public void run()
+	{
+		try
+		{
+			while(running)
+			{
+				b1.setSelected(true);
+				if(b1.isSelected())
+				{
+					l2.setText("STOP");
+					l2.setForeground(Color.red);
+				}
+				Thread.sleep(5000);
+				b2.setSelected(true);
+				if(b2.isSelected())
+				{
+					l2.setText("READY");
+					l2.setForeground(Color.yellow);
+				}
+				Thread.sleep(3000);
+				b3.setSelected(true);
+				if(b3.isSelected())
+				{
+					l2.setText("GO");
+					l2.setForeground(Color.green);
+				}
+				Thread.sleep(5000);
+			}
+		}catch(Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+	public static void main(String[] args) 
+	{
+		new trafficsignal();
+
+	}
+
+}
