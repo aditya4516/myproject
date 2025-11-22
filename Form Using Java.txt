@@ -1,0 +1,99 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Method {
+
+    public static void main(String[] args) {
+
+        // Frame
+        JFrame frame = new JFrame("College Admission Form");
+        frame.setSize(450, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(null);
+
+        // Labels & Fields
+        JLabel title = new JLabel("College Admission Form");
+        title.setFont(new Font("Arial", Font.BOLD, 20));
+        title.setBounds(100, 10, 300, 40);
+        frame.add(title);
+
+        JLabel nameLabel = new JLabel("Full Name:");
+        nameLabel.setBounds(50, 70, 120, 25);
+        JTextField nameField = new JTextField();
+        nameField.setBounds(180, 70, 200, 25);
+
+        JLabel ageLabel = new JLabel("Age:");
+        ageLabel.setBounds(50, 110, 120, 25);
+        JTextField ageField = new JTextField();
+        ageField.setBounds(180, 110, 200, 25);
+
+        JLabel genderLabel = new JLabel("Gender:");
+        genderLabel.setBounds(50, 150, 120, 25);
+        String[] genderOptions = {"Male", "Female", "Other"};
+        JComboBox<String> genderBox = new JComboBox<>(genderOptions);
+        genderBox.setBounds(180, 150, 200, 25);
+
+        JLabel courseLabel = new JLabel("Course Applied:");
+        courseLabel.setBounds(50, 190, 120, 25);
+        String[] courses = {"BSc Computer Science", "BBA", "BCom", "BA", "BTech"};
+        JComboBox<String> courseBox = new JComboBox<>(courses);
+        courseBox.setBounds(180, 190, 200, 25);
+
+        JLabel addressLabel = new JLabel("Address:");
+        addressLabel.setBounds(50, 230, 120, 25);
+        JTextArea addressArea = new JTextArea();
+        JScrollPane addressScroll = new JScrollPane(addressArea);
+        addressScroll.setBounds(180, 230, 200, 70);
+
+        JButton submitBtn = new JButton("Submit");
+        submitBtn.setBounds(100, 330, 100, 30);
+
+        JButton resetBtn = new JButton("Reset");
+        resetBtn.setBounds(230, 330, 100, 30);
+
+        // Add components to frame
+        frame.add(nameLabel);
+        frame.add(nameField);
+        frame.add(ageLabel);
+        frame.add(ageField);
+        frame.add(genderLabel);
+        frame.add(genderBox);
+        frame.add(courseLabel);
+        frame.add(courseBox);
+        frame.add(addressLabel);
+        frame.add(addressScroll);
+        frame.add(submitBtn);
+        frame.add(resetBtn);
+
+        // Submit Action
+        submitBtn.addActionListener(e -> {
+            String name = nameField.getText();
+            String age = ageField.getText();
+            String gender = genderBox.getSelectedItem().toString();
+            String course = courseBox.getSelectedItem().toString();
+            String address = addressArea.getText();
+
+            JOptionPane.showMessageDialog(frame,
+                "Form Submitted Successfully!\n\n" +
+                "Name: " + name +
+                "\nAge: " + age +
+                "\nGender: " + gender +
+                "\nCourse: " + course +
+                "\nAddress: " + address
+            );
+        });
+
+        // Reset Action
+        resetBtn.addActionListener(e -> {
+            nameField.setText("");
+            ageField.setText("");
+            addressArea.setText("");
+            genderBox.setSelectedIndex(0);
+            courseBox.setSelectedIndex(0);
+        });
+
+        frame.setVisible(true);
+    }
+}
+
